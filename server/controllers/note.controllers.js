@@ -1,6 +1,5 @@
-import Note from "../models/notes.model.js";
-import notesRouter from "../routes/notes.routes.js";
-
+import Note, { Project } from "../models/notes.model.js";
+import { error } from "../Prefunc/dry.js";
 export const createNote = async (req, res) => {
   try {
     const note = new Note({ content: req.body.content, user: req.body.user });
@@ -10,9 +9,9 @@ export const createNote = async (req, res) => {
     console.log(error);
   }
 };
-export const getNotes = async () => {
+export const getProjects = async () => {
   try {
-    const notes = await Note.find().sort({ createdAt: -1 });
+    const notes = await Project.find().sort({ createdAt: -1 });
     res.json(notes);
   } catch (error) {
     console.log(error);
@@ -29,11 +28,12 @@ export const editNote = async (req, res) => {
     console.log(error);
   }
 };
-
 export const getNotesById = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const notes = await Note.find({ user: userId });
+    const { id } = req.params;
+    const notes = await Note.find({ project: id });
+    if (!id) error(res, 400, "create project first");
+    if (!notes) error(res, 404, "there no notesF");
     res.status(200).json(notes);
   } catch (err) {
     console.log(err);
