@@ -49,7 +49,7 @@ A secure and scalable subscription management API built with Node.js, featuring 
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/subscription-api.git
+git clone https://github.com/taha203040/subscribtion_app_api.git
 cd subscription-api
 
 # Install dependencies
